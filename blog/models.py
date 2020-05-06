@@ -3,18 +3,6 @@ from django.db import models
 # Create your models here.
 from core.models import TimeStampedModel
 
-'''
-    todo:
-        [x] - create CORE app
-        [x] - make model for blog
-        [x] - Category with title and slug
-        [x] - Tag - title and slug
-        [x] - Post - title, slug, author, content, created_at, photo, view, category, tags
-        [x] - install pillow package
-        [x] - create git
-        [ ] - create super user
-'''
-
 
 class Category(models.Model):
     title = models.CharField(max_length=100, verbose_name='Заголовок категории')
@@ -43,7 +31,7 @@ class Tag(models.Model):
 
 
 class Post(TimeStampedModel):
-    title = models.CharField(max_length=100, verbose_name='Заголовок поста'),
+    title = models.CharField(max_length=100, verbose_name='Заголовок поста')
     slug = models.SlugField(max_length=255, unique=True, verbose_name='Url')
     author = models.CharField(max_length=100, verbose_name='Автор')
     content = models.TextField(blank=True, verbose_name='Пост')
