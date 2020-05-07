@@ -1,4 +1,15 @@
 $(document).ready(function () {
+
+
+    (() => {
+        const menu = document.querySelectorAll('.menu a');
+        Object.keys(menu).forEach((key) => {
+            if (window.location.href === menu[key].href)
+                console.log(menu[key].parentElement.classList.toggle('active'))
+        })
+    })()
+
+
     var filterFns = {
         numberGreaterThan50: function () {
             var number = $(this).find('.number').text();
