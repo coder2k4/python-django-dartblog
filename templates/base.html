@@ -21,9 +21,9 @@
 <body>
 <div class="wrapper">
 
-    {% cache 20 header%}
-        {% include 'inc/header.html' %}
-    {% endcache %}
+
+    {% include 'inc/header.html' %}
+
 
     {% block content %}
     {% endblock content %}

@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-
-    (() => {
-        const menu = document.querySelectorAll('.menu a');
-        Object.keys(menu).forEach((key) => {
-            if (window.location.href === menu[key].href)
-                console.log(menu[key].parentElement.classList.toggle('active'))
-        })
-    })()
+    // Активация пунктов меню
+    // (() => {
+    //     const menu = document.querySelectorAll('.menu a');
+    //     Object.keys(menu).forEach((key) => {
+    //         if (window.location.href === menu[key].href)
+    //             console.log(menu[key].parentElement.classList.toggle('active'))
+    //     })
+    // })()
 
 
     var filterFns = {

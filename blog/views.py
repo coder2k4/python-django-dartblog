@@ -6,5 +6,5 @@ def index(request):
     return render(request, 'blog/index.html')
 
 
-def category(request):
+def category(request, slug):
     return render(request, 'blog/index.html')

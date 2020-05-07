@@ -4,7 +4,7 @@ from blog.models import Category
 register = template.Library()
 
 
-@register.inclusion_tag('blog/menu.html')
-def show_menu(menu_class='menu'):
+@register.inclusion_tag('blog/menu.html', takes_context=True)
+def show_menu(context, menu_class='menu'):
     categories = Category.objects.all()
-    return {"categories": categories, "menu_class": menu_class}
+    return {"categories": categories, "menu_class": menu_class, "context": context}
