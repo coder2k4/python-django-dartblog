@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.urls import reverse
+
 from core.models import TimeStampedModel
 
 
@@ -10,6 +12,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:category', args=[str(self.id)])
 
     class Meta:
         verbose_name = 'Категория'
