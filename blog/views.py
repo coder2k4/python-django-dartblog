@@ -23,3 +23,18 @@ class Home(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Главная страница мега блока'
         return context
+
+
+class Category(ListView):
+    template_name = 'blog/category.html'
+    paginate_by = 8
+    paginate_orphans = 5
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return models.Post.objects.filter(category__slug=self.kwargs['slug'])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = models.Category.objects.get(slug=self.kwargs['slug'])
+        return context

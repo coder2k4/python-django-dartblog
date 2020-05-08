@@ -1,6 +1,7 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from django.contrib import admin
+from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 
 from . import models
@@ -45,7 +46,7 @@ class PostAdmin(admin.ModelAdmin):
         'title',
         'slug',
         'author',
-        'content',
+        'truncate_content',
         'view',
         'category',
         'created',
@@ -68,7 +69,7 @@ class PostAdmin(admin.ModelAdmin):
         }),
         ('Загрузить фотографию', {
             'classes': ('wide',),
-            'fields': ('get_photo','photo')
+            'fields': ('get_photo', 'photo')
         }),
     )
 
@@ -80,3 +81,8 @@ class PostAdmin(admin.ModelAdmin):
         return "-"
 
     get_photo.short_description = "Превью"
+
+    def truncate_content(self, obj):
+        return strip_tags(obj.content[:50] + '...')
+
+    truncate_content.short_description = "Короткий текст"
