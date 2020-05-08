@@ -1,5 +1,6 @@
+from django.db.models import F
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from . import models
 
@@ -26,7 +27,6 @@ class Home(ListView):
 
 
 class Category(ListView):
-    template_name = 'blog/category.html'
     paginate_by = 8
     paginate_orphans = 5
     context_object_name = 'posts'
@@ -36,5 +36,27 @@ class Category(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = models.Category.objects.get(slug=self.kwargs['slug'])
+        context['title'] = models.Category.objects.get(
+            slug=self.kwargs['slug'])
         return context
+
+
+class Post(DetailView):
+
+    model = models.Post
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        self.object.view = F('view') + 1
+        self.object.save()
+        # Обязательно нужно перезагрузить поле из БД иначе будет тектовое представление строки F
+        self.object.refresh_from_db()
+        return super().get_context_data(**kwargs)
+
+
+class PostByTag(ListView):
+    paginate_by = 8
+    paginate_orphans = 8
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        return models.Post.objects.filter(tags__slug=self.kwargs['slug'])
