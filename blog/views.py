@@ -48,7 +48,7 @@ class Post(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         self.object.view = F('view') + 1
         self.object.save()
-        # Обязательно нужно перезагрузить поле из БД иначе будет тектовое представление строки F
+        # Обязательно нужно перезагрузить поле из БД иначе будет текстовое представление строки F
         self.object.refresh_from_db()
         return super().get_context_data(**kwargs)
 

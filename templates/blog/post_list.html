@@ -19,7 +19,7 @@
                         {% if post.photo %}
                         <img src="{{ post.photo.url }}" alt="{{post.title}}">
                         {% endif %}
-                        <h3><a href="#">{{ post.title }}</a></h3>
+                        <h3><a href="{% url 'blog:post' post.category.slug post.slug %}">{{ post.title }}</a></h3>
                         <h4><span>Posted By: <span class="author-name">{{ post.author }}</span></span>
                         </h4>
                         {{ post.content|safe|truncatechars_html:20 }}
