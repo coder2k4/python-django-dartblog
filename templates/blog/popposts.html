@@ -1,0 +1,19 @@
+<div class="grid">
+
+    {% for post in popposts %}
+
+    <div class="portfolio-item popular">
+        {% if post.photo %}
+        <img src="{{ post.photo.url }}" alt="{{post.title}}">
+        {% endif %}
+        <div class="portfolio-text">
+            <h5>
+                <a href="{% url 'blog:post' post.category.slug post.slug %}">{{ post.title }}</a>
+            </h5>
+            <p>{{ post.author }} <span>|</span> {{post.updated}}</p>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
