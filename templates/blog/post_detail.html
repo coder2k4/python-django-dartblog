@@ -1,105 +1,81 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load popularpost %}
+{% load static popularpost tagscloud %}
 
 {%block title %}
-    {{ post.title }}
+{{ post.title }}
 {%endblock title %}
 
 {% block content %}
 
-    <section class="single-blog-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="border-top">
-                        <div class="col-md-8">
-                            <div class="blog-area">
-                                <div class="blog-area-part">
+<section class="single-blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-top">
+                    <div class="col-md-8">
+                        <div class="blog-area">
+                            <div class="blog-area-part">
 
-                                    <h2>{{post.title}}</h2>
+                                <h2>{{post.title}}</h2>
 
-                                    <div class="single-content">
-                                        <span>Category: <a href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
-                                        <br>
-                                        {% if post.tags.exists %}
-                                        <span>
+                                <div class="single-content">
+                                    <span>Category: <a
+                                            href="{{ post.category.get_absolute_url }}">{{ post.category }}</a></span>
+                                    <br>
+                                    {% if post.tags.exists %}
+                                    <span>
                                             Tags:
                                             {% for tag in post.tags.all %}
-                                            <a href="{% url 'blog:tag' post.category.slug tag.slug %}">{{ tag.title }}</a>
+                                            <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
                                             {% endfor %}
                                         </span>
-                                        <br>
-                                        {% endif %}
-                                        <span>View: {{ post.view }}</span>
-                                    </div>
-
-
-                                    {% if post.photo %}
-                                    <div class="for-style">
-                                        <img src="{{post.photo.url}}" alt="{{post.title}}">
-                                    </div>
+                                    <br>
                                     {% endif %}
-                                    <p>{{post.content|safe}}</p>
+                                    <span>View: {{ post.view }}</span>
                                 </div>
-                                <div class="ads-area">
-                                    <img src="img/ads.jpg" alt="">
-                                    <p>Your Ad Banner Goes Here</p>
+
+
+                                {% if post.photo %}
+                                <div class="for-style">
+                                    <img src="{{post.photo.url}}" alt="{{post.title}}">
                                 </div>
+                                {% endif %}
+                                <p>{{post.content|safe}}</p>
+                            </div>
+                            <div class="ads-area">
+                                <img src="img/ads.jpg" alt="">
+                                <p>Your Ad Banner Goes Here</p>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div class="col-md-4">
-                            <div class="button-group filters-button-group">
-                                <button data-filter=".recent" class="button is-checked">Recent</button>
-                                <button data-filter=".popular" class="button">popular</button>
-                                <button data-filter=".users" class="button">Users</button>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="button-group filters-button-group">
+                            <button data-filter=".recent" class="button is-checked">Recent</button>
+                            <button data-filter=".popular" class="button">popular</button>
+                            <button data-filter=".users" class="button">Users</button>
+                        </div>
 
-                            {% popularpost %}
+                        {% popularpost %}
 
-                            <div class="tags">
-                                <h2 class="sidebar-title">Tags</h2>
-                                <p><a href="#">Adventure</a></p>
-                                <p><a href="#">Animals</a></p>
-                                <p><a href="#">Asia</a></p>
-                                <p><a href="#">Beauty</a></p>
-                                <p><a href="#">Canada</a></p>
-                                <p><a href="#">Celebration</a></p>
-                                <p><a href="#">City</a></p>
-                                <p><a href="#">Coffee</a></p>
-                                <p><a href="#">Constructions</a></p>
-                                <p><a href="#">Europe</a></p>
-                                <p><a href="#">Adventure</a></p>
-                                <p><a href="#">Animals</a></p>
-                                <p><a href="#">Asia</a></p>
-                                <p><a href="#">Beauty</a></p>
-                                <p><a href="#">Canada</a></p>
-                                <p><a href="#">Celebration</a></p>
-                                <p><a href="#">City</a></p>
-                                <p><a href="#">Coffee</a></p>
-                                <p><a href="#">Constructions</a></p>
-                                <p><a href="#">Europe</a></p>
-                                <p><a href="#">Adventure</a></p>
-                                <p><a href="#">Animals</a></p>
-                                <p><a href="#">Asia</a></p>
-                                <p><a href="#">Beauty</a></p>
-                                <p><a href="#">Canada</a></p>
-                            </div>
-                            <div class="newsletter">
-                                <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
-                                <form action="#" method="post">
-                                    <input type="email" name="" id="" placeholder="Email">
-                                    <input type="submit" value="Subscribe">
-                                </form>
-                            </div>
+                        <div class="tags">
+                            <h2 class="sidebar-title">Tags</h2>
+                            {% tagscloud %}
+                        </div>
+                        <div class="newsletter">
+                            <h2 class="sidebar-title">Subscribe To oUR nEWSLETTER</h2>
+                            <form action="#" method="post">
+                                <input type="email" name="" id="" placeholder="Email">
+                                <input type="submit" value="Subscribe">
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 {% endblock content %}
 

@@ -1,0 +1,3 @@
+{% for tag in tagscloud  %}
+    <p><a href="{% url 'blog:tag' tag.slug %}">{{ tag.title }}</a></p>
+{% endfor %}
