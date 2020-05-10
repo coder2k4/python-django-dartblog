@@ -1,0 +1,1 @@
+установлен модуль django-mptt https://django-mptt.readthedocs.io/en/latest/install.html
