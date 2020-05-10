@@ -1,4 +1,4 @@
-from django.db.models import F
+from django.db.models import F, Q
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
@@ -42,7 +42,6 @@ class Category(ListView):
 
 
 class Post(DetailView):
-
     model = models.Post
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -55,9 +54,22 @@ class Post(DetailView):
 
 class PostByTag(ListView):
     paginate_by = 8
-    paginate_orphans = 8
+    paginate_orphans = 4
     context_object_name = 'posts'
 
     def get_queryset(self):
-        print(self.kwargs['slug'])
         return models.Post.objects.filter(tags__slug=str(self.kwargs['slug']))
+
+
+class SearchPost(ListView):
+    paginate_by = 8
+    paginate_orphans = 4
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        search = self.request.GET.get('s')
+        print(search)
+        return models.Post.objects.filter(
+            Q(title__icontains=str(search)) |
+            Q(content__icontains=str(search))
+        )

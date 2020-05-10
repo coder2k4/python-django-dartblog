@@ -7,7 +7,6 @@
 
 {% block content %}
 
-
 <section class="blog-post-area">
     <div class="container">
         <div class="row">
@@ -46,13 +45,13 @@
         <div class="nav-links">
 
             {% if page_obj.has_previous and page_obj.previous_page_number != 1 %}
-            <a class="page-numbers" href="?page={{1}}">
+            <a class="page-numbers" href="?page={{1}}{%if request.GET.s%}&s={{ request.GET.s }}{%endif%}">
                 <i class="fa fa-double-angle-left" aria-hidden="true"></i>
             </a>
             {% endif %}
 
             {% if page_obj.has_previous %}
-            <a class="page-numbers" href="?page={{page_obj.previous_page_number}}">
+            <a class="page-numbers" href="?page={{page_obj.previous_page_number}}{%if request.GET.s%}&s={{ request.GET.s }}{%endif%}">
                 <i class="fa fa-angle-left" aria-hidden="true"></i>
             </a>
             {% endif %}
@@ -61,18 +60,18 @@
             {% if p == page_obj.number %}
             <span class="page-numbers current">{{p}}</span>
             {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
-            <a class="page-numbers" href="?page={{p}}">{{p}}</a>
+            <a class="page-numbers" href="?page={{p}}{%if request.GET.s%}&s={{ request.GET.s }}{%endif%}">{{p}}</a>
             {% endif %}
             {% endfor %}
 
             {% if page_obj.has_next %}
-            <a class="page-numbers" href="?page={{page_obj.next_page_number}}">
+            <a class="page-numbers" href="?page={{page_obj.next_page_number}}{%if request.GET.s%}&s={{ request.GET.s }}{%endif%}">
                 <i class="fa fa-angle-right" aria-hidden="true"></i>
             </a>
             {% endif %}
 
             {% if page_obj.has_next and page_obj.next_page_number != page_obj.paginator.num_pages %}
-            <a class="page-numbers" href="?page={{page_obj.paginator.num_pages}}">
+            <a class="page-numbers" href="?page={{page_obj.paginator.num_pages}}{%if request.GET.s%}&s={{ request.GET.s }}{%endif%}">
                 <i class="fa fa-double-angle-right" aria-hidden="true"></i>
             </a>
             {% endif %}
